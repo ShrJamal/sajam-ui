@@ -1,0 +1,4 @@
+@import "./theme.css";
+
+/* Include every installed component in the consuming app's Tailwind build. */
+@source "./";

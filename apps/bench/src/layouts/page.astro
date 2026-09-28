@@ -1,0 +1,22 @@
+---
+import Signup from "../components/signup"
+
+// Shared page shell. Each page imports its own stylesheet before this layout.
+type Props = { title: string }
+
+const { title } = Astro.props
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Signup client:load />
+  </body>
+</html>

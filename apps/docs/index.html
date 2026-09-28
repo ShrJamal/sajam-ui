@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Set the color scheme before the static page paints.
+      ;(function () {
+        const root = document.documentElement
+        root.dataset.themeEmbedded = window.parent !== window ? "true" : "false"
+        let mode = "system"
+        try {
+          const saved = JSON.parse(localStorage.getItem("sajam-ui-appearance") || "null")
+          const legacy = localStorage.getItem("sajam-ui-theme")
+          const candidate = saved?.version === 1 ? saved.settings?.mode : legacy
+          if (["system", "light", "dark"].includes(candidate)) mode = candidate
+        } catch {}
+        const dark =
+          mode === "dark" ||
+          (mode === "system" && matchMedia("(prefers-color-scheme: dark)").matches)
+        root.classList.toggle("dark", dark)
+        root.style.colorScheme = dark ? "dark" : "light"
+      })()
+    </script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta
+      name="description"
+      content="Reusable React components built with Base UI. Explore live examples, copy code, and start with ready-made page templates."
+    />
+    <meta
+      name="theme-color"
+      content="#faf9f6"
+    />
+    <title>Sajam UI — React components for your next project</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon.svg"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script
+      type="module"
+      src="/src/main.tsx"
+    ></script>
+  </body>
+</html>

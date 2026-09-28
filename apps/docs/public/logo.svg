@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>Sajam UI</title>
+  <rect width="64" height="64" rx="18" fill="#c65d3b"/>
+  <g fill="#fff">
+    <path d="M50 14H25.25A11.25 11.25 0 0 0 14 25.25V36.5h20.25l-9-9H23v-2.25A2.25 2.25 0 0 1 25.25 23H50z"/>
+    <path d="M14 50h24.75A11.25 11.25 0 0 0 50 38.75V27.5H29.75l9 9H41v2.25A2.25 2.25 0 0 1 38.75 41H14z"/>
+  </g>
+</svg>

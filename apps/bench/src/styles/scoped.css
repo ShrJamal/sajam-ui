@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "@sajam/ui/theme.css";
+@import "@sajam/ui/sources/button.css";
+@import "@sajam/ui/sources/card.css";
+@import "@sajam/ui/sources/dialog.css";
+@import "@sajam/ui/sources/input.css";

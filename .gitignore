@@ -1,0 +1,48 @@
+.DS_Store
+.git
+node_modules/
+.pnp/
+.pnp.js/
+*.pem
+
+# build
+build/
+package/
+dist/
+.output/
+dist-ssr/
+preview-dist/
+.prerender/
+.astro/
+/apps/docs/public/starters/
+.wrangler
+
+# typescript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+deno.lock
+
+# environment variables
+.env.local
+.env.production
+
+.vitest/
+*.tgz
+playwright-report/
+.playwright-mcp/
+test-results/
+
+# local design QA
+/design-qa.md
+/docs/design-qa/
