@@ -36,6 +36,14 @@ export const pages: DocPage[] = [
           'Give the group an `aria-label`. Use `ButtonGroup.Separator` between same-colored buttons (e.g. a split button with a `DropdownMenu` trigger), `ButtonGroup.Text` for static addons, and `orientation="vertical"` for stacked groups. Use ToggleGroup for selectable segments.',
         examples: ["basic", "split-button", "with-input", "vertical"],
       },
+      {
+        component: "copy-button",
+        title: "Copy button",
+        description: "Copies a value to the clipboard and confirms the result on the button.",
+        usage:
+          "Pass the text as `value`. Icon-only by default with `copyLabel` as its accessible name; add children for a labeled button. Use `onCopy` to show a toast and `onCopyError` to report failures.",
+        examples: ["basic", "with-label"],
+      },
     ],
   },
   {
@@ -116,6 +124,14 @@ export const pages: DocPage[] = [
         usage:
           'Selection is single by default; add `multiple` to allow several. The value is always a string[]. `spacing={0}` joins items into a segmented control, and orientation="vertical" switches arrow keys to up and down.',
         examples: ["basic", "multiple", "joined", "sizes", "vertical"],
+      },
+      {
+        component: "segmented-control",
+        title: "Segmented control",
+        description: "A pill track for picking exactly one of a few options, like a view or theme.",
+        usage:
+          "Give the root an `aria-label` and one `SegmentedControl.Item` per option. Selection behaves like a radio group: one option is always selected and arrow keys move it. Use ToggleGroup when options can be turned off.",
+        examples: ["basic", "with-icons", "sizes"],
       },
     ],
   },
@@ -619,6 +635,20 @@ export const pages: DocPage[] = [
           },
         ],
       },
+      {
+        component: "confirm-dialog",
+        title: "Confirm dialog",
+        description: "A ready-made alert dialog that asks the user to confirm one action.",
+        usage:
+          'Pass the opening element as `trigger`, plus `title`, `description`, and `confirmLabel`; use `variant="destructive"` for irreversible actions. For async work set `closeOnConfirm={false}`, pass `loading`, and close through `open`/`onOpenChange` when the request settles. Children render above the actions, for example a confirmation input.',
+        examples: [
+          "basic",
+          {
+            id: "async-confirm",
+            title: "Async confirmation",
+          },
+        ],
+      },
     ],
   },
   {
@@ -983,7 +1013,7 @@ export const pages: DocPage[] = [
         title: "Toast",
         description: "Brief, non-blocking notifications that confirm actions or report progress.",
         usage:
-          "Mount one Toast.Toaster near the app root and call Toast.toast.add({ title, type }) anywhere; type is info, success, warning, destructive, or loading. Give any extra Toaster its own manager from Toast.createToastManager().",
+          "Mount one Toast.Toaster near the app root and call toast.add({ title, type }) anywhere; type is info, success, warning, destructive, or loading. Each type also has a shorthand, such as toast.success(title, { description }). Give any extra Toaster its own manager from Toast.createToastManager().",
         examples: [
           "basic",
           {
@@ -1127,8 +1157,8 @@ export const pages: DocPage[] = [
         title: "Table",
         description: "Semantic table parts for static rows and columns.",
         usage:
-          'Compose Table.Root with Header, Body, Footer, Row, Head, Cell and Caption. Set data-state="selected" on a Row to highlight it. Use Data table when you need sorting, filtering or paging.',
-        examples: ["basic", "status-and-actions", "selectable-rows"],
+          'Compose Table.Root with Header, Body, Footer, Row, Head, Cell and Caption. Set data-state="selected" on a Row to highlight it. Wide tables scroll sideways and fade the edge with hidden columns; style the scroll container with containerClassName and set --table-fade to the surface color behind the table. Use Data table when you need sorting, filtering or paging.',
+        examples: ["basic", "status-and-actions", "selectable-rows", "wide"],
       },
       {
         component: "data-table",

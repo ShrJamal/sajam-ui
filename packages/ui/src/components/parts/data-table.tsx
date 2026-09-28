@@ -551,7 +551,8 @@ function DataTable<TData extends RowData>({
       <div
         ref={scrollRef}
         className={cn(
-          "bg-background relative overflow-auto rounded-lg border [&_[data-slot=table-container]]:overflow-visible",
+          // This wrapper scrolls, so the table's own scroll area and edge fades step aside.
+          "bg-background relative overflow-auto rounded-lg border [&_[data-slot=table-container]]:overflow-visible [&_[data-slot=table-fade]]:hidden [&_[data-slot=table-scroll]]:overflow-visible",
           density === "compact" && "[&_td]:py-1 [&_th]:h-8",
         )}
         style={virtual ? { height: virtual.height } : undefined}

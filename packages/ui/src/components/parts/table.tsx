@@ -3,16 +3,71 @@
 import { cn } from "cn"
 import * as React from "react"
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+// Scrolls horizontally when columns overflow, fading the edge that has more columns to reveal.
+// The fade matches --table-fade (the background token by default); set it to the surface the
+// table sits on, e.g. containerClassName="[--table-fade:var(--color-card)]".
+function Table({
+  className,
+  containerClassName,
+  ...props
+}: React.ComponentProps<"table"> & { containerClassName?: string }) {
+  const scrollRef = React.useRef<HTMLDivElement>(null)
+  const [overflow, setOverflow] = React.useState({ start: false, end: false })
+
+  React.useEffect(function () {
+    const element = scrollRef.current
+    if (!element) return
+
+    function update() {
+      if (!element) return
+      // scrollLeft is negative in right-to-left layouts, so compare magnitudes.
+      const scrolled = Math.abs(element.scrollLeft)
+      const maxScroll = element.scrollWidth - element.clientWidth
+      setOverflow({ start: scrolled > 1, end: scrolled < maxScroll - 1 })
+    }
+
+    update()
+    element.addEventListener("scroll", update, { passive: true })
+    const observer = new ResizeObserver(update)
+    observer.observe(element)
+    if (element.firstElementChild) observer.observe(element.firstElementChild)
+
+    return function () {
+      element.removeEventListener("scroll", update)
+      observer.disconnect()
+    }
+  }, [])
+
   return (
     <div
       data-slot="table-container"
-      className="relative w-full overflow-x-auto"
+      className={cn(
+        "relative w-full overflow-hidden [--table-fade:var(--color-background)]",
+        containerClassName,
+      )}
     >
-      <table
-        data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
-        {...props}
+      <div
+        ref={scrollRef}
+        data-slot="table-scroll"
+        className="w-full overflow-x-auto rounded-[inherit]"
+      >
+        <table
+          data-slot="table"
+          className={cn("w-full caption-bottom text-sm", className)}
+          {...props}
+        />
+      </div>
+      <div
+        aria-hidden="true"
+        data-slot="table-fade"
+        data-visible={overflow.start || undefined}
+        className="pointer-events-none absolute inset-y-0 start-0 w-8 bg-linear-to-r from-(--table-fade) to-transparent opacity-0 transition-opacity duration-200 data-visible:opacity-100 rtl:bg-linear-to-l"
+      />
+      <div
+        aria-hidden="true"
+        data-slot="table-fade"
+        data-visible={overflow.end || undefined}
+        className="pointer-events-none absolute inset-y-0 end-0 w-8 bg-linear-to-l from-(--table-fade) to-transparent opacity-0 transition-opacity duration-200 data-visible:opacity-100 rtl:bg-linear-to-r"
       />
     </div>
   )

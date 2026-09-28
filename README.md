@@ -4,7 +4,7 @@ A React component library and its documentation site. Customize components in on
 
 | Path                         | Contents                                                                          |
 | ---------------------------- | --------------------------------------------------------------------------------- |
-| [packages/ui](./packages/ui) | The public `@sajam/ui` package: 87 components, types, and theme styles            |
+| [packages/ui](./packages/ui) | The public `@sajam/ui` package: 90 components, types, and theme styles            |
 | [apps/docs](./apps/docs)     | Private docs site with 54 component pages, live examples, and 8 starter templates |
 
 See the [package README](./packages/ui/README.md) for installation, API shape, theming, and the component inventory.

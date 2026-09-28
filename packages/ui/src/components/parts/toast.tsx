@@ -3,8 +3,6 @@
 import {
   Toast as ToastPrimitive,
   type ToastManager as BaseToastManager,
-  type ToastManagerAddOptions,
-  type ToastManagerUpdateOptions,
   type ToastObject,
 } from "@base-ui/react/toast"
 import { cn } from "cn"
@@ -12,6 +10,15 @@ import { CircleCheckIcon, InfoIcon, OctagonXIcon, TriangleAlertIcon, XIcon } fro
 import * as React from "react"
 import { Button } from "./button.js"
 import { Spinner } from "./spinner.js"
+import {
+  type ToastData,
+  type ToastManager,
+  type ToastManagerMethods,
+  type ToastOptions,
+  type ToastType,
+  createToastManager,
+  toast,
+} from "./toast-manager.js"
 
 const viewportPositions: Record<ToastPosition, string> = {
   "top-left": "top-4 left-4",
@@ -23,10 +30,6 @@ const viewportPositions: Record<ToastPosition, string> = {
 }
 
 const ToastPositionContext = React.createContext<ToastPosition>("bottom-right")
-
-// Shared manager for app-wide toasts. Render a single Toaster for it; give any additional
-// Toaster its own manager from createToastManager() so each toast renders only once.
-const toast = createToastManager()
 
 function ToastProvider({ ...props }: ToastPrimitive.Provider.Props) {
   return <ToastPrimitive.Provider {...props} />
@@ -214,32 +217,6 @@ type ToastPosition =
   | "bottom-center"
   | "bottom-right"
 
-type ToastType = "info" | "success" | "warning" | "destructive" | "loading"
-
-type ToastData = Record<string, unknown>
-
-type ToastOptions = Omit<ToastManagerAddOptions<ToastData>, "type"> & { type?: ToastType }
-
-type ToastUpdateOptions = Omit<ToastManagerUpdateOptions<ToastData>, "type"> & {
-  type?: ToastType
-}
-
-type ToastPromiseOptions<Value> = {
-  loading: string | ToastUpdateOptions
-  success: string | ToastUpdateOptions | ((result: Value) => string | ToastUpdateOptions)
-  error: string | ToastUpdateOptions | ((error: unknown) => string | ToastUpdateOptions)
-}
-
-// Base UI's manager with `type` narrowed to the styled toast types.
-type ToastManager = Pick<BaseToastManager<ToastData>, " subscribe" | "close"> & {
-  add: (options: ToastOptions) => string
-  update: (
-    id: string,
-    updates: ToastUpdateOptions | ((previous: ToastObject<ToastData>) => ToastUpdateOptions),
-  ) => void
-  promise: <Value>(promise: Promise<Value>, options: ToastPromiseOptions<Value>) => Promise<Value>
-}
-
 type ToastRenderer = (
   toastItem: ToastObject<ToastData>,
   defaultContent: React.ReactNode,
@@ -252,14 +229,9 @@ type ToasterProps = Omit<ToastPrimitive.Provider.Props, "toastManager"> & {
   closeLabel?: string
 }
 
-// Creates an independent manager, for example to scope a Toaster to one part of the page.
-function createToastManager() {
-  return ToastPrimitive.createToastManager<ToastData>() as ToastManager
-}
-
 // Returns the nearest Toaster's toasts together with its typed manager methods.
 function useToastManager() {
-  return ToastPrimitive.useToastManager<ToastData>() as ToastManager & {
+  return ToastPrimitive.useToastManager<ToastData>() as ToastManagerMethods & {
     toasts: ToastObject<ToastData>[]
   }
 }
@@ -363,6 +335,5 @@ export {
   type ToastRenderer,
   type ToastType,
   createToastManager,
-  toast,
   useToastManager,
 }

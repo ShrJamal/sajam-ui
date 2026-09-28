@@ -13,7 +13,7 @@ Bun monorepo: public `@sajam/ui` package in `packages/ui`, private docs site in 
 
 ## Component API
 
-- Compound components are namespaces only (`Card.Root`, `Card.Header`, `Card.Body`); never flat aliases like `CardHeader`. Special members: `Chart.Config`, `Carousel.Api`, `Toast.Toaster`, `Toast.toast`.
+- Compound components are namespaces only (`Card.Root`, `Card.Header`, `Card.Body`); never flat aliases like `CardHeader`. Special members: `Chart.Config`, `Carousel.Api`, `Toast.Toaster`. The shared toast manager is the flat `toast` export (`toast.success(...)`), not a namespace member.
 - Singletons stay flat with flat helpers and types: `Button`/`buttonVariants`, `Input`, `Badge`, `Snippet`, `CircularProgress`, `DatePicker`, `DataTable`/`DataTableColumn`, `Rating`, `DirectionProvider`/`useDirection`.
 - Props: `value`/`defaultValue`/`onValueChange`, `open`/`defaultOpen`/`onOpenChange`. Status `variant`s are `info`, `success`, `warning`, `destructive` (Toast uses `type`). Sizes are `sm`, `default`, `lg`. Name prop types `Props`. No PrimeReact-style names or alias pairs.
 - Compose consumer handlers and refs; never let spread props replace internal ones.

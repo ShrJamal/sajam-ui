@@ -13,7 +13,7 @@ const toasts: Toast.ToastOptions[] = [
 ]
 
 export default function ToastTypes() {
-  // A local manager keeps these toasts separate from the app-wide Toast.toast.
+  // A local manager keeps these toasts separate from the app-wide toast.
   const [toastManager] = useState(function () {
     return Toast.createToastManager()
   })
